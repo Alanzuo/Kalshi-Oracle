@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import type { Strategy } from "@/lib/types";
 
@@ -67,9 +68,17 @@ export default function StrategyTable() {
               </tr>
             )}
             {rows.map((s) => (
-              <tr key={s.name} className="border-b border-zinc-800/50">
+              <tr
+                key={s.name}
+                className="border-b border-zinc-800/50 hover:bg-zinc-900/50 transition-colors"
+              >
                 <Td>
-                  <span className="font-mono">{s.name}</span>
+                  <Link
+                    href={`/strategy/${s.name}`}
+                    className="font-mono text-zinc-100 hover:text-emerald-400"
+                  >
+                    {s.name}
+                  </Link>
                 </Td>
                 <Td>
                   <span

@@ -30,6 +30,9 @@ export default function RootLayout({
               <Link href="/equity" className="hover:text-zinc-100">
                 Equity
               </Link>
+              <Link href="/backtests" className="hover:text-zinc-100">
+                Backtests
+              </Link>
             </div>
           </div>
         </nav>
