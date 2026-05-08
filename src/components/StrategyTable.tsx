@@ -6,6 +6,17 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import type { Strategy } from "@/lib/types";
 
+// Maker strategies whose backtest PnL is inflated because the fill-rate
+// algorithm over-counts by ~3x (validated against PredictionMarketBench
+// ground truth on 2026-05-08). Real fill rate is likely 15-25% vs the
+// 50-60% we measured. Until Phase 2 (real trade tape) ships, these
+// strategies' PnL numbers should be discounted.
+const FILL_RATE_UNVERIFIED = new Set([
+  "bsm_maker",
+  "velocity_maker",
+  "wing_fade",
+]);
+
 export default function StrategyTable() {
   const [rows, setRows] = useState<Strategy[]>([]);
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
@@ -79,6 +90,14 @@ export default function StrategyTable() {
                   >
                     {s.name}
                   </Link>
+                  {FILL_RATE_UNVERIFIED.has(s.name) && (
+                    <span
+                      className="ml-2 text-xs uppercase px-1.5 py-0.5 rounded bg-yellow-900/40 text-yellow-300"
+                      title="Maker strategy — backtest PnL is inflated. Real fill rate ~15-25% vs assumed 100%. Awaiting trade-tape integration."
+                    >
+                      ⚠ unverified
+                    </span>
+                  )}
                 </Td>
                 <Td>
                   <span
