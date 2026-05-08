@@ -65,3 +65,34 @@ export interface RealMoney {
   last_breaker_4h_pnl: number | null;
   updated_at: string;
 }
+
+export type ModelDecision = "ship" | "shelve";
+
+export interface ModelVersion {
+  version_tag: string;
+  model_type: string;
+  trained_at_utc: string;
+  n_train_rows: number;
+  n_test_rows: number;
+  test_brier: number | null;
+  test_log_loss: number | null;
+  test_calibration_mae: number | null;
+  test_accuracy_at_50: number | null;
+  test_pnl_at_25edge: number | null;
+  baseline_brier: number | null;
+  baseline_log_loss: number | null;
+  baseline_calibration_mae: number | null;
+  baseline_pnl_at_25edge: number | null;
+  decision: ModelDecision | string;
+  is_active: boolean;
+  feature_columns_json: string | null;
+  notes: string | null;
+  created_at: string;
+}
+
+export interface ModelCoefficient {
+  version_tag: string;
+  feature_name: string;
+  coefficient: number;
+  abs_coefficient: number;
+}

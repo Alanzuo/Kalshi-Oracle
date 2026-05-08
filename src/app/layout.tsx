@@ -33,6 +33,9 @@ export default function RootLayout({
               <Link href="/backtests" className="hover:text-zinc-100">
                 Backtests
               </Link>
+              <Link href="/model" className="hover:text-zinc-100">
+                Model
+              </Link>
             </div>
           </div>
         </nav>
